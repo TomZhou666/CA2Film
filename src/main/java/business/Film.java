@@ -1,3 +1,5 @@
+package business;
+
 import java.util.Objects;
 
 public class Film implements Comparable<Film> {
@@ -5,6 +7,14 @@ public class Film implements Comparable<Film> {
     private String genre;
     private double totalRatings;
     private int numberOfRatings;
+
+    public Film() {
+    }
+
+    public Film(String title, String genre) {
+        this.title = title;
+        this.genre = genre;
+    }
 
     public Film(String title, String genre, double totalRatings, int numberOfRatings) {
         this.title = title;
@@ -47,7 +57,7 @@ public class Film implements Comparable<Film> {
 
     @Override
     public String toString() {
-        return "Film{" +
+        return "Film.Film{" +
                 "title='" + title + '\'' +
                 ", genre='" + genre + '\'' +
                 ", totalRatings=" + totalRatings +

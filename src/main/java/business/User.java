@@ -1,3 +1,5 @@
+package business;
+
 import java.util.Objects;
 
 public class User {
@@ -30,14 +32,6 @@ public class User {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getAdminStatus() {
         return AdminStatus;
     }
@@ -47,11 +41,9 @@ public class User {
     }
 
     // GOOD PRACTICE or HELPER METHODS
-
-
     @Override
     public String toString() {
-        return "User{" +
+        return "business.User{" +
                 "username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", AdminStatus='" + AdminStatus + '\'' +
@@ -69,5 +61,10 @@ public class User {
     @Override
     public int hashCode() {
         return Objects.hash(username);
+    }
+
+    //Validate password method
+    public boolean validatePassword(String password){
+        return this.password.equals(password);
     }
 }

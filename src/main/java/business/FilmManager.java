@@ -1,3 +1,5 @@
+package business;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,12 +32,12 @@ public class FilmManager {
 
     public boolean addFilm(Film film) {
         if (film == null) {
-            System.out.println("Film cannot be null.");
+            System.out.println("Film.Film cannot be null.");
             return false;
         }
 
         if (film.equals(getFilmByTitle(film.getTitle()))) {
-            System.out.println("Film already exist.");
+            System.out.println("Film.Film already exists.");
             return false;
         }
 
@@ -45,7 +47,7 @@ public class FilmManager {
 
     public boolean deleteFilmByTitle(String title) {
         if (title == null) {
-            System.out.println("Film cannot be null.");
+            System.out.println("Film.Film cannot be null.");
             return false;
         }
 
