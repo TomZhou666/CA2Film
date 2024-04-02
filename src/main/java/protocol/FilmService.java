@@ -17,8 +17,10 @@ public class FilmService {
     public static final String SEARCH_BY_GENRE = "searchByGenre";
     public static final String EXIT = "GOODBYE";
     public static final String SHUTDOWN = "shutdown";
+    public static final String REMOVE = "REMOVE";
 
     //Responses
+    public static final String ADD = "ADD";
     public static final String ADDED = "ADDED";
     public static final String REJECTED = "REJECTED";
     public static final String SUCCESS_ADMIN = "SUCCESS_ADMIN";

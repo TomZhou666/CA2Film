@@ -9,6 +9,7 @@ public class UserManager {
 
     //CONSTRUCTOR
     public UserManager(){
+
         users = new HashMap<String, User>();
     }
 
