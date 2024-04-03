@@ -9,6 +9,7 @@ public class User {
     private String AdminStatus;
 
     //CONSTRUCTORS
+
     // No Parameter constructor
     public User(){
 
@@ -18,12 +19,10 @@ public class User {
     public User(String username, String password, String adminStatus){
         this.username = username;
         this.password = password;
-        this.AdminStatus =adminStatus;
+        this.AdminStatus = adminStatus;
     }
 
     //GETTERS & SETTERS
-
-
     public String getUsername() {
         return username;
     }

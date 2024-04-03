@@ -5,17 +5,17 @@ import java.util.HashMap;
 import java.util.List;
 
 public class FilmManager {
-    private HashMap<String, Film> films;
+    private static HashMap<String, Film> films= new HashMap<>();
 
     public FilmManager() {
-        films = new HashMap<String, Film>();
+        films = new HashMap<>();
     }
 
-    public Film getFilmByTitle(String title) {
-        return films.get(title.toLowerCase());
+    public static Film getFilmByTitle(String title) {
+        return films.get(title);
     }
 
-    public List<Film> getFilmsByGenre(String genre) {
+    public static List<Film> getFilmsByGenre(String genre) {
         List<Film> filmList = new ArrayList<>();
         for (Film film : films.values()) {
             if (film.getGenre().equals(genre)) {
@@ -25,19 +25,19 @@ public class FilmManager {
         return filmList;
     }
 
-    public void filmRating(String title, double rating) {
+    public static void filmRating(String title, double rating) {
         Film film = films.get(title);
         film.addRating(rating);
     }
 
-    public boolean addFilm(Film film) {
+    public static boolean addFilm(Film film) {
         if (film == null) {
-            System.out.println("Film.Film cannot be null.");
+            System.out.println("Film cannot be null.");
             return false;
         }
 
-        if (film.equals(getFilmByTitle(film.getTitle()))) {
-            System.out.println("Film.Film already exists.");
+        if (films.get(film.getTitle()) != null) {
+            System.out.println("Film already exists.");
             return false;
         }
 
@@ -45,9 +45,9 @@ public class FilmManager {
         return true;
     }
 
-    public boolean deleteFilmByTitle(String title) {
+    public static boolean deleteFilmByTitle(String title) {
         if (title == null) {
-            System.out.println("Film.Film cannot be null.");
+            System.out.println("Film cannot be null.");
             return false;
         }
 
