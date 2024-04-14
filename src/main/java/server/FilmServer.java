@@ -12,14 +12,14 @@ import java.net.Socket;
 public class FilmServer {
     //Create server switch
     public static boolean serverSwitch = true;
+    //Create data set
+    private static final DataSet dataSet = new DataSet();
     public static void main(String[] args) {
         //Creating request handler
         RequestHandler handler = new RequestHandler();
-        //
-
-        //Create admin
-        User admin = new User("Tom", "666", "ADMIN");
-        UserManager.register(admin);
+        //Call data set
+        dataSet.initialAdmin();
+        dataSet.initialFilmData();
         //Generate socket listener
         try (ServerSocket listeningSocket = new ServerSocket(FilmService.PORT)){
             while (serverSwitch){

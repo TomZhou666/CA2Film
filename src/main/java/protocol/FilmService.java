@@ -8,8 +8,7 @@ public class FilmService {
     //Delimiter
     public static final String DELIMITER = "%%";
     public static final String FILM_DELIMITER = "*";
-    public static final String LEFT_BRACKET = "[";
-    public static final String RIGHT_BRACKET = "]";
+    public static final String GENRE_DELIMITER = "~~";
 
     //Requests
     public static final String REGISTER = "register";

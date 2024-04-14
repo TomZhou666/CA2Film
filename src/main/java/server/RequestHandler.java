@@ -40,7 +40,7 @@ public class RequestHandler {
                     //Register
                     case FilmService.REGISTER:
                         User newUser = new User(component[1], component[2], "USER");
-                        if(UserManager.getUserByUsername(component[1]) != null){
+                        if (UserManager.getUserByUsername(component[1]) != null) {
                             response = FilmService.REJECTED;
                             break;
                         }
@@ -76,7 +76,7 @@ public class RequestHandler {
                     //Rate
                     case FilmService.RATE:
                         //Check if login
-                        if(currentUser == null){
+                        if (currentUser == null) {
                             response = FilmService.NOT_LOGGED_IN;
                             break;
                         }
@@ -117,12 +117,20 @@ public class RequestHandler {
                             break;
                         }
                         StringBuilder responseBuilder = new StringBuilder();
-                        for (Film filmInList : filmList) {
-                            responseBuilder.append(FilmService.LEFT_BRACKET).append(filmInList.getTitle())
-                                    .append(FilmService.DELIMITER).append(filmInList.getGenre())
-                                    .append(FilmService.DELIMITER).append(filmInList.getFinalRating())
-                                    .append(FilmService.DELIMITER).append(filmInList.getNumberOfRatings())
-                                    .append(FilmService.RIGHT_BRACKET).append(FilmService.FILM_DELIMITER);
+
+                        responseBuilder.append(filmList.get(0).getTitle()).append(FilmService.DELIMITER)
+                                   .append(filmList.get(0).getGenre()).append(FilmService.DELIMITER)
+                                   .append(filmList.get(0).getFinalRating()).append(FilmService.DELIMITER)
+                                   .append(filmList.get(0).getNumberOfRatings());
+
+                        if(filmList.size() > 1){
+                            for (int i = 1; i < filmList.size(); i++){
+                                responseBuilder.append(FilmService.GENRE_DELIMITER)
+                                        .append(filmList.get(i).getTitle()).append(FilmService.DELIMITER)
+                                        .append(filmList.get(i).getGenre()).append(FilmService.DELIMITER)
+                                        .append(filmList.get(i).getFinalRating()).append(FilmService.DELIMITER)
+                                        .append(filmList.get(i).getNumberOfRatings()).append(FilmService.FILM_DELIMITER);
+                            }
                         }
 
                         response = responseBuilder.toString();
@@ -135,7 +143,7 @@ public class RequestHandler {
                             break;
                         }
                         //Check if film exists
-                        if(FilmManager.getFilmByTitle(component[1]) != null){
+                        if (FilmManager.getFilmByTitle(component[1]) != null) {
                             response = FilmService.EXISTS;
                             break;
                         }
@@ -172,7 +180,7 @@ public class RequestHandler {
 
                     case FilmService.SHUTDOWN:
                         //Check permission
-                        if(!currentUser.getAdminStatus().equals("ADMIN")){
+                        if (!currentUser.getAdminStatus().equals("ADMIN")) {
                             response = FilmService.INSUFFICIENT_PERMISSIONS;
                             break;
                         }
