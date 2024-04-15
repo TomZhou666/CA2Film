@@ -1,7 +1,5 @@
 package server;
 
-import business.User;
-import business.UserManager;
 import protocol.FilmService;
 
 import java.io.IOException;

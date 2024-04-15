@@ -129,7 +129,7 @@ public class RequestHandler {
                                         .append(filmList.get(i).getTitle()).append(FilmService.DELIMITER)
                                         .append(filmList.get(i).getGenre()).append(FilmService.DELIMITER)
                                         .append(filmList.get(i).getFinalRating()).append(FilmService.DELIMITER)
-                                        .append(filmList.get(i).getNumberOfRatings()).append(FilmService.FILM_DELIMITER);
+                                        .append(filmList.get(i).getNumberOfRatings());
                             }
                         }
 

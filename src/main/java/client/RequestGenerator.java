@@ -21,23 +21,23 @@ public class RequestGenerator {
 
         while (validation) {
             displayMenu();
-            String order = userInput.nextLine();
+            String order = userInput.nextLine().trim();
 
             switch (order){
                 //Login
                 case FilmService.LOGIN:
                     System.out.println("username:");
-                    String username = userInput.nextLine();
+                    String username = userInput.nextLine().trim();
                     System.out.println("password:");
-                    String password = userInput.nextLine();
+                    String password = userInput.nextLine().trim();
                     request = FilmService.LOGIN + FilmService.DELIMITER + username + FilmService.DELIMITER + password;
                     break;
                 //Register
                 case FilmService.REGISTER:
                     System.out.println("username:");
-                    String newUsername = userInput.nextLine();
+                    String newUsername = userInput.nextLine().trim();
                     System.out.println("password:");
-                    String newPassword = userInput.nextLine();
+                    String newPassword = userInput.nextLine().trim();
                     request = FilmService.REGISTER + FilmService.DELIMITER + newUsername + FilmService.DELIMITER + newPassword;
                     break;
                 //Exit
@@ -46,12 +46,12 @@ public class RequestGenerator {
                     break;
 
                 case FilmService.RATE:
-                    System.out.println(FilmService.NOT_LOGGED_IN);
+                    System.out.println("Please login first.");
                     continue;
 
-                    //Invalid request
+                //Invalid request
                 default:
-                    System.out.println(FilmService.INVALID_REQUEST);
+                    System.out.println("Please enter correct command.");
                     continue;
             }
             //Jump out from loop

@@ -48,11 +48,47 @@ public class FilmClient {
                                 //Get response
                                 response = input.nextLine();
                                 //Display response
-                                System.out.println("Received from server: " + response);
-                                //Check if logout
-                                if (response.equals(FilmService.LOGGED_OUT)) {
-                                    System.out.println(FilmService.LOGGED_OUT);
-                                    validation = false;
+                                switch (response){
+                                    case FilmService.SUCCESS:
+                                        System.out.println("Rate successfully!");
+                                        break;
+
+                                    case FilmService.INVALID_RATING_SUPPLIED:
+                                        System.out.println("Please enter correct rating format.");
+                                        break;
+
+                                    case FilmService.INVALID_REQUEST:
+                                        System.out.println("Please enter correct command.");
+                                        break;
+
+                                    case FilmService.NOT_LOGGED_IN:
+                                        System.out.println("Please login first.");
+                                        break;
+
+                                    case FilmService.NOT_MATCH_FOUND:
+                                        System.out.println("Film was not found. Please try again later.");
+                                        break;
+
+                                    case FilmService.INSUFFICIENT_PERMISSIONS:
+                                        System.out.println("Insufficient permissions.");
+                                        break;
+
+                                    case FilmService.LOGGED_OUT:
+                                        System.out.println("Logout successfully.");
+                                        validation = false;
+                                        break;
+
+                                    default:
+                                        String[] films = response.split(FilmService.GENRE_DELIMITER);
+                                        for (String film : films) {
+                                            String[] details = film.split(FilmService.DELIMITER);
+                                                System.out.println("Title: " + details[0]);
+                                                System.out.println("Genre: " + details[1]);
+                                                System.out.println("Total Ratings: " + details[2]);
+                                                System.out.println("Number of raters: " + details[3]);
+                                                System.out.println();
+                                        }
+                                        break;
                                 }
                             }
                             break;
@@ -68,27 +104,61 @@ public class FilmClient {
                                 //Get response
                                 response = input.nextLine();
                                 //Display response
-                                System.out.println("Received from server: " + response);
-                                //Check if logout
-                                if (response.equals(FilmService.LOGGED_OUT)) {
-                                    System.out.println(FilmService.LOGGED_OUT);
-                                    validation = false;
-                                }
-                                if(response.equals(FilmService.SHUT_DOWN)){
-                                    validation = false;
-                                    validSession = false;
+                                switch (response){
+                                    case FilmService.ADDED:
+                                        System.out.println("Add film successfully!");
+                                        break;
+
+                                    case FilmService.EXISTS:
+                                        System.out.println("Film has existed. Please try again later.");
+                                        break;
+
+                                    case FilmService.REMOVED:
+                                        System.out.println("Remove film successfully.");
+                                        break;
+
+                                    case FilmService.NOT_FOUND:
+                                        System.out.println("Film was not found. Please try again.");
+                                        break;
+
+                                    case FilmService.LOGGED_OUT:
+                                        System.out.println("Logout successfully.");
+                                        validation = false;
+                                        break;
+
+                                    case FilmService.SHUT_DOWN:
+                                        System.out.println("Server has been shut down.");
+                                        validation = false;
+                                        validSession = false;
+                                        break;
+
+                                    default:
+                                        System.out.println(response);
+                                        break;
                                 }
                             }
                             break;
 
+                        case FilmService.ADDED:
+                            System.out.println("Register successfully!");
+                            break;
+
+                        case FilmService.REJECTED:
+                            System.out.println("Failed to register. Please try again later.");
+                            break;
+
+                        case FilmService.EXISTS:
+                            System.out.println("Username doesn't exist or password wrong. Please try again later.");
+                            break;
+
                         case FilmService.GOODBYE:
                             validSession = false;
-                            System.out.println(FilmService.GOODBYE);
+                            System.out.println("Welcome to user next time! Goodbye!");
                             break;
 
                         default:
                             //Display response
-                            System.out.println("Received from server: " + response);
+                            System.out.println("Something went wrong. Please try again later.");
                             break;
                     }
                 }
@@ -98,5 +168,4 @@ public class FilmClient {
         } catch (IOException e) {
             System.out.println("An IOException occurred: " + e.getMessage());
         }
-    }
-}
+    }}

@@ -7,7 +7,6 @@ public class FilmService {
 
     //Delimiter
     public static final String DELIMITER = "%%";
-    public static final String FILM_DELIMITER = "*";
     public static final String GENRE_DELIMITER = "~~";
 
     //Requests
