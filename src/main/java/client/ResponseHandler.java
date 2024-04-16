@@ -8,21 +8,20 @@ public class ResponseHandler {
     public ResponseHandler() {
     }
 
-    private void userLoggedMenu(){
-        System.out.println("1) Rate a film (rate)");
-        System.out.println("2) Search a film by name (searchByName)");
-        System.out.println("3) Search a film by genre (searchByGenre)");
-        System.out.println("4) Logout");
+    private void userLoggedMenu() {
+        System.out.println("1) Rate film (rate)");
+        System.out.println("2) Search film(search)");
+        System.out.println("3) Logout");
     }
 
-    private void adminLoggedMenu(){
+    private void adminLoggedMenu() {
         System.out.println("1) Add a film (add)");
         System.out.println("2) Remove a film (remove)");
         System.out.println("3) Logout");
         System.out.println("4) Shutdown");
     }
 
-    public String handleUser(Scanner userInput){
+    public String handleUser(Scanner userInput) {
         boolean validation = true;
         String request = null;
 
@@ -30,26 +29,33 @@ public class ResponseHandler {
             userLoggedMenu();
             String order = userInput.nextLine();
 
-            switch (order){
+            switch (order) {
                 case FilmService.RATE:
                     System.out.println("Film title:");
-                    String title = userInput.nextLine();
+                    String title = userInput.nextLine().trim().toLowerCase();
                     System.out.println("0 - 10:");
                     double rating = userInput.nextDouble();
                     userInput.nextLine();
                     request = FilmService.RATE + FilmService.DELIMITER + title + FilmService.DELIMITER + rating;
                     break;
 
-                case FilmService.SEARCH_BY_NAME:
-                    System.out.println("Film title:");
-                    String searchTitle = userInput.nextLine();
-                    request = FilmService.SEARCH_BY_NAME + FilmService.DELIMITER + searchTitle;
-                    break;
+                case FilmService.SEARCH:
+                    System.out.println("By title or genre?");
+                    String option = userInput.nextLine().trim().toLowerCase();
+                    //Search condition
+                    switch (option) {
+                        case FilmService.TITLE:
+                            System.out.println("Film title:");
+                            String searchTitle = userInput.nextLine().trim().toLowerCase();
+                            request = FilmService.SEARCH_BY_NAME + FilmService.DELIMITER + searchTitle;
+                            break;
 
-                case FilmService.SEARCH_BY_GENRE:
-                    System.out.println("Film genre:");
-                    String searchGenre = userInput.nextLine();
-                    request = FilmService.SEARCH_BY_GENRE + FilmService.DELIMITER + searchGenre;
+                        case FilmService.GENRE:
+                            System.out.println("Film genre:");
+                            String searchGenre = userInput.nextLine().trim();
+                            request = FilmService.SEARCH_BY_GENRE + FilmService.DELIMITER + searchGenre;
+                            break;
+                    }
                     break;
 
                 case FilmService.LOGOUT:
@@ -74,15 +80,15 @@ public class ResponseHandler {
         return request;
     }
 
-    public String handleAdmin(Scanner userInput){
+    public String handleAdmin(Scanner userInput) {
         boolean validation = true;
         String request = null;
 
-        while (validation){
+        while (validation) {
             adminLoggedMenu();
-            String order = userInput.nextLine();
+            String order = userInput.nextLine().trim();
 
-            switch (order){
+            switch (order) {
                 case FilmService.ADD:
                     System.out.println("Film title:");
                     String title = userInput.nextLine();

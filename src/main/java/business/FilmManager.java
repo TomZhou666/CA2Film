@@ -12,13 +12,18 @@ public class FilmManager {
     }
 
     public static Film getFilmByTitle(String title) {
-        return films.get(title);
+        for (String key : films.keySet()){
+            if(key.equalsIgnoreCase(title)){
+                return films.get(key);
+            }
+        }
+        return null;
     }
 
     public static List<Film> getFilmsByGenre(String genre) {
         List<Film> filmList = new ArrayList<>();
         for (Film film : films.values()) {
-            if (film.getGenre().equals(genre)) {
+            if (film.getGenre().toLowerCase().equals(genre)) {
                 filmList.add(film);
             }
         }
@@ -26,8 +31,12 @@ public class FilmManager {
     }
 
     public static void filmRating(String title, double rating) {
-        Film film = films.get(title);
-        film.addRating(rating);
+        for (String key : films.keySet()){
+            if(key.equalsIgnoreCase(title)){
+                Film film = films.get(key);
+                film.addRating(rating);
+            }
+        }
     }
 
     public static boolean addFilm(Film film) {
@@ -36,9 +45,11 @@ public class FilmManager {
             return false;
         }
 
-        if (films.get(film.getTitle()) != null) {
-            System.out.println("Film already exists.");
-            return false;
+        for(String key : films.keySet()){
+            if(key.equalsIgnoreCase(film.getTitle())){
+                System.out.println("Film already exists.");
+                return false;
+            }
         }
 
         films.put(film.getTitle(), film);
@@ -50,8 +61,12 @@ public class FilmManager {
             System.out.println("Film cannot be null.");
             return false;
         }
-
-        films.remove(title);
-        return true;
+        for (String key : films.keySet()){
+            if(key.equalsIgnoreCase(title)){
+                films.remove(key);
+                return true;
+            }
+        }
+        return false;
     }
 }

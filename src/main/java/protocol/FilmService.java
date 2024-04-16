@@ -14,6 +14,9 @@ public class FilmService {
     public static final String LOGIN = "login";
     public static final String LOGOUT = "logout";
     public static final String RATE = "rate";
+    public static final String SEARCH = "search";
+    public static final String TITLE = "title";
+    public static final String GENRE = "genre";
     public static final String SEARCH_BY_NAME = "searchByName";
     public static final String SEARCH_BY_GENRE = "searchByGenre";
     public static final String ADD = "add";

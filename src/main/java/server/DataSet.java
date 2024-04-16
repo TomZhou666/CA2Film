@@ -14,7 +14,7 @@ public class DataSet {
     }
     //Initial film data
     public void initialFilmData(){
-        addFilm(new Film("Titanic", "Romance"));
+        addFilm(new Film("Titanic", "Romance", 100, 10));
         addFilm(new Film("The Matrix", "Sci-Fi"));
         addFilm(new Film("Gladiator", "Action"));
         addFilm(new Film("Pulp Fiction", "Crime"));
