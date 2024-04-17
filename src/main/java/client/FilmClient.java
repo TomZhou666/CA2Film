@@ -78,6 +78,9 @@ public class FilmClient {
                                         validation = false;
                                         break;
 
+                                    case FilmService.PREVIOUS:
+                                        break;
+
                                     default:
                                         String[] films = response.split(FilmService.GENRE_DELIMITER);
                                         for (String film : films) {

@@ -191,7 +191,8 @@ public class RequestHandler {
                         break;
 
                     case FilmService.PREVIOUS:
-                        continue;
+                        response = FilmService.PREVIOUS;
+                        break;
 
                     default:
                         System.out.println(FilmService.INVALID_REQUEST);
