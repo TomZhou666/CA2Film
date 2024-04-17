@@ -190,6 +190,9 @@ public class RequestHandler {
                         FilmServer.serverSwitch = false;
                         break;
 
+                    case FilmService.PREVIOUS:
+                        continue;
+
                     default:
                         System.out.println(FilmService.INVALID_REQUEST);
                         continue;

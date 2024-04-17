@@ -40,21 +40,36 @@ public class ResponseHandler {
                     break;
 
                 case FilmService.SEARCH:
-                    System.out.println("By title or genre?");
-                    String option = userInput.nextLine().trim().toLowerCase();
+                    boolean validInputForSearch = true;
                     //Search condition
-                    switch (option) {
-                        case FilmService.TITLE:
-                            System.out.println("Film title:");
-                            String searchTitle = userInput.nextLine().trim().toLowerCase();
-                            request = FilmService.SEARCH_BY_NAME + FilmService.DELIMITER + searchTitle;
-                            break;
+                    while (validInputForSearch) {
+                        //Hint command for user
+                        System.out.println("Please enter title or genre:");
+                        String option = userInput.nextLine().trim().toLowerCase();
+                        switch (option) {
+                            case FilmService.TITLE:
+                                System.out.println("Film title:");
+                                String searchTitle = userInput.nextLine().trim().toLowerCase();
+                                request = FilmService.SEARCH_BY_NAME + FilmService.DELIMITER + searchTitle;
+                                validInputForSearch = false;
+                                break;
 
-                        case FilmService.GENRE:
-                            System.out.println("Film genre:");
-                            String searchGenre = userInput.nextLine().trim();
-                            request = FilmService.SEARCH_BY_GENRE + FilmService.DELIMITER + searchGenre;
-                            break;
+                            case FilmService.GENRE:
+                                System.out.println("Film genre:");
+                                String searchGenre = userInput.nextLine().trim();
+                                request = FilmService.SEARCH_BY_GENRE + FilmService.DELIMITER + searchGenre;
+                                validInputForSearch = false;
+                                break;
+
+                            case FilmService.PREVIOUS:
+                                request = FilmService.PREVIOUS;
+                                validInputForSearch = false;
+                                break;
+
+                            default:
+                                System.out.println("Please enter correct command. Enter 'previous' go back to previous menu.");
+                                break;
+                        }
                     }
                     break;
 

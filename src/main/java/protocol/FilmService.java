@@ -23,6 +23,7 @@ public class FilmService {
     public static final String REMOVE = "remove";
     public static final String EXIT = "exit";
     public static final String SHUTDOWN = "shutdown";
+    public static final String PREVIOUS = "previous";
 
     //Responses
     public static final String ADDED = "ADDED";
