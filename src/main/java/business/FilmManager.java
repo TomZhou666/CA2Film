@@ -30,6 +30,16 @@ public class FilmManager {
         return filmList;
     }
 
+    public static List<Film> getRecommendedFilms(){
+        List<Film> filmList = new ArrayList<>();
+        for(Film film : films.values()){
+            if(film.getTotalRatings() >= 8.0){
+                filmList.add(film);
+            }
+        }
+        return filmList;
+    }
+
     public static void filmRating(String title, double rating) {
         for (String key : films.keySet()){
             if(key.equalsIgnoreCase(title)){

@@ -13,16 +13,19 @@ public class FilmServer {
     //Create data set
     private static final DataSet dataSet = new DataSet();
     public static void main(String[] args) {
-        //Creating request handler
-        RequestHandler handler = new RequestHandler();
         //Call data set
         dataSet.initialAdmin();
         dataSet.initialFilmData();
         //Generate socket listener
         try (ServerSocket listeningSocket = new ServerSocket(FilmService.PORT)){
             while (serverSwitch){
+                //Create socket to listen request for client
                 Socket dataSocket = listeningSocket.accept();
-                handler.handleRequest(dataSocket);
+                //Create request handler
+                RequestHandler handler = new RequestHandler(dataSocket);
+                //Create thread
+                Thread thread = new Thread(handler);
+                thread.start();
             }
         } catch (BindException e){
             System.out.println("BindException occurred when attempting to bind to port " + FilmService.PORT);

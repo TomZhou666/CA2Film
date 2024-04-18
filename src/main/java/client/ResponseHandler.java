@@ -11,7 +11,8 @@ public class ResponseHandler {
     private void userLoggedMenu() {
         System.out.println("1) Rate film (rate)");
         System.out.println("2) Search film(search)");
-        System.out.println("3) Logout");
+        System.out.println("3) Get some recommended films(recommend)");
+        System.out.println("4) Logout");
     }
 
     private void adminLoggedMenu() {
@@ -71,6 +72,10 @@ public class ResponseHandler {
                                 break;
                         }
                     }
+                    break;
+
+                case FilmService.RECOMMEND:
+                    request = FilmService.SEARCH_BY_RECOMMEND;
                     break;
 
                 case FilmService.LOGOUT:

@@ -13,17 +13,22 @@ import java.util.List;
 import java.util.Scanner;
 
 
-public class RequestHandler {
+public class RequestHandler implements Runnable{
     private User currentUser;
+    private final Socket dataSocket;
 
-    public RequestHandler() {
+    public RequestHandler(Socket dataSocket) {
+        this.dataSocket = dataSocket;
     }
 
-    public void handleRequest(Socket dataSocket) {
+    @Override
+    public void run() {
         //Create input scanner
         try (Scanner input = new Scanner(dataSocket.getInputStream())) {
             //Output for response message
             PrintWriter output = new PrintWriter(dataSocket.getOutputStream());
+            //Create string builder
+            StringBuilder responseBuilder = new StringBuilder();
             //Valid session
             boolean validation = true;
             while (validation) {
@@ -110,26 +115,51 @@ public class RequestHandler {
                         break;
                     //Search film by genre
                     case FilmService.SEARCH_BY_GENRE:
-                        List<Film> filmList = FilmManager.getFilmsByGenre(component[1]);
+                        List<Film> filmListByGenre = FilmManager.getFilmsByGenre(component[1]);
                         //Check film list if empty
-                        if (filmList.isEmpty()) {
+                        if (filmListByGenre.isEmpty()) {
                             response = FilmService.NOT_MATCH_FOUND;
                             break;
                         }
-                        StringBuilder responseBuilder = new StringBuilder();
 
-                        responseBuilder.append(filmList.get(0).getTitle()).append(FilmService.DELIMITER)
-                                   .append(filmList.get(0).getGenre()).append(FilmService.DELIMITER)
-                                   .append(filmList.get(0).getFinalRating()).append(FilmService.DELIMITER)
-                                   .append(filmList.get(0).getNumberOfRatings());
+                        responseBuilder.append(filmListByGenre.get(0).getTitle()).append(FilmService.DELIMITER)
+                                .append(filmListByGenre.get(0).getGenre()).append(FilmService.DELIMITER)
+                                .append(filmListByGenre.get(0).getFinalRating()).append(FilmService.DELIMITER)
+                                .append(filmListByGenre.get(0).getNumberOfRatings());
 
-                        if(filmList.size() > 1){
-                            for (int i = 1; i < filmList.size(); i++){
+                        if (filmListByGenre.size() > 1) {
+                            for (int i = 1; i < filmListByGenre.size(); i++) {
                                 responseBuilder.append(FilmService.GENRE_DELIMITER)
-                                        .append(filmList.get(i).getTitle()).append(FilmService.DELIMITER)
-                                        .append(filmList.get(i).getGenre()).append(FilmService.DELIMITER)
-                                        .append(filmList.get(i).getFinalRating()).append(FilmService.DELIMITER)
-                                        .append(filmList.get(i).getNumberOfRatings());
+                                        .append(filmListByGenre.get(i).getTitle()).append(FilmService.DELIMITER)
+                                        .append(filmListByGenre.get(i).getGenre()).append(FilmService.DELIMITER)
+                                        .append(filmListByGenre.get(i).getFinalRating()).append(FilmService.DELIMITER)
+                                        .append(filmListByGenre.get(i).getNumberOfRatings());
+                            }
+                        }
+
+                        response = responseBuilder.toString();
+                        break;
+                    //Search films by recommend
+                    case FilmService.SEARCH_BY_RECOMMEND:
+                        List<Film> filmListByRecommend = FilmManager.getRecommendedFilms();
+                        //Check film list if empty
+                        if (filmListByRecommend.isEmpty()) {
+                            response = FilmService.NOT_MATCH_FOUND;
+                            break;
+                        }
+
+                        responseBuilder.append(filmListByRecommend.get(0).getTitle()).append(FilmService.DELIMITER)
+                                .append(filmListByRecommend.get(0).getGenre()).append(FilmService.DELIMITER)
+                                .append(filmListByRecommend.get(0).getFinalRating()).append(FilmService.DELIMITER)
+                                .append(filmListByRecommend.get(0).getNumberOfRatings());
+
+                        if (filmListByRecommend.size() > 1) {
+                            for (int i = 1; i < filmListByRecommend.size(); i++) {
+                                responseBuilder.append(FilmService.GENRE_DELIMITER)
+                                        .append(filmListByRecommend.get(i).getTitle()).append(FilmService.DELIMITER)
+                                        .append(filmListByRecommend.get(i).getGenre()).append(FilmService.DELIMITER)
+                                        .append(filmListByRecommend.get(i).getFinalRating()).append(FilmService.DELIMITER)
+                                        .append(filmListByRecommend.get(i).getNumberOfRatings());
                             }
                         }
 

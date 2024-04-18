@@ -24,6 +24,8 @@ public class FilmService {
     public static final String EXIT = "exit";
     public static final String SHUTDOWN = "shutdown";
     public static final String PREVIOUS = "previous";
+    public static final String RECOMMEND = "recommend";
+    public static final String SEARCH_BY_RECOMMEND = "searchByRecommend";
 
     //Responses
     public static final String ADDED = "ADDED";

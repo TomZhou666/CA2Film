@@ -16,9 +16,9 @@ public class DataSet {
     public void initialFilmData(){
         addFilm(new Film("Titanic", "Romance", 100, 10));
         addFilm(new Film("The Matrix", "Sci-Fi"));
-        addFilm(new Film("Gladiator", "Action"));
+        addFilm(new Film("Gladiator", "Action", 90, 10));
         addFilm(new Film("Pulp Fiction", "Crime"));
-        addFilm(new Film("Forrest Gump", "Drama"));
+        addFilm(new Film("Forrest Gump", "Drama", 95, 10));
         addFilm(new Film("The Godfather", "Crime"));
         addFilm(new Film("Schindler's List", "Drama"));
         addFilm(new Film("The Shaw shank Redemption", "Drama"));
