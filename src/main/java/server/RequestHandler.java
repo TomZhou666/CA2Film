@@ -16,9 +16,13 @@ import java.util.Scanner;
 public class RequestHandler implements Runnable{
     private User currentUser;
     private final Socket dataSocket;
+    private final UserManager userManager;
+    private final FilmManager filmManager;
 
-    public RequestHandler(Socket dataSocket) {
+    public RequestHandler(Socket dataSocket, UserManager userManager, FilmManager filmManager) {
         this.dataSocket = dataSocket;
+        this.userManager = userManager;
+        this.filmManager = filmManager;
     }
 
     @Override
@@ -45,11 +49,12 @@ public class RequestHandler implements Runnable{
                     //Register
                     case FilmService.REGISTER:
                         User newUser = new User(component[1], component[2], "USER");
-                        if (UserManager.getUserByUsername(component[1]) != null) {
+                        if (userManager.getUserByUsername(component[1]) != null) {
                             response = FilmService.REJECTED;
                             break;
                         }
-                        boolean isRegister = UserManager.register(newUser);
+                        boolean isRegister = userManager.register(newUser);
+
                         if (isRegister) {
                             response = FilmService.ADDED;
                         } else {
@@ -58,7 +63,7 @@ public class RequestHandler implements Runnable{
                         break;
                     //Login
                     case FilmService.LOGIN:
-                        User user = UserManager.getUserByUsername(component[1]);
+                        User user = userManager.getUserByUsername(component[1]);
                         //Check user if null
                         if (user == null) {
                             response = FilmService.FAILED;
@@ -85,7 +90,7 @@ public class RequestHandler implements Runnable{
                             response = FilmService.NOT_LOGGED_IN;
                             break;
                         }
-                        film = FilmManager.getFilmByTitle(component[1]);
+                        film = filmManager.getFilmByTitle(component[1]);
                         //Check film if exists
                         if (film == null) {
                             response = FilmService.NOT_MATCH_FOUND;
@@ -94,7 +99,7 @@ public class RequestHandler implements Runnable{
                         //Convert the third element of component to double
                         try {
                             double rating = Double.parseDouble(component[2]);
-                            FilmManager.filmRating(component[1], rating);
+                            filmManager.filmRating(component[1], rating);
                             response = FilmService.SUCCESS;
                         } catch (NumberFormatException e) {
                             response = FilmService.INVALID_RATING_SUPPLIED;
@@ -102,7 +107,7 @@ public class RequestHandler implements Runnable{
                         break;
                     //Search film by title
                     case FilmService.SEARCH_BY_NAME:
-                        film = FilmManager.getFilmByTitle(component[1]);
+                        film = filmManager.getFilmByTitle(component[1]);
                         //Check film if exists
                         if (film == null) {
                             response = FilmService.NOT_MATCH_FOUND;
@@ -115,7 +120,7 @@ public class RequestHandler implements Runnable{
                         break;
                     //Search film by genre
                     case FilmService.SEARCH_BY_GENRE:
-                        List<Film> filmListByGenre = FilmManager.getFilmsByGenre(component[1]);
+                        List<Film> filmListByGenre = filmManager.getFilmsByGenre(component[1]);
                         //Check film list if empty
                         if (filmListByGenre.isEmpty()) {
                             response = FilmService.NOT_MATCH_FOUND;
@@ -141,7 +146,7 @@ public class RequestHandler implements Runnable{
                         break;
                     //Search films by recommend
                     case FilmService.SEARCH_BY_RECOMMEND:
-                        List<Film> filmListByRecommend = FilmManager.getRecommendedFilms();
+                        List<Film> filmListByRecommend = filmManager.getRecommendedFilms();
                         //Check film list if empty
                         if (filmListByRecommend.isEmpty()) {
                             response = FilmService.NOT_MATCH_FOUND;
@@ -173,13 +178,13 @@ public class RequestHandler implements Runnable{
                             break;
                         }
                         //Check if film exists
-                        if (FilmManager.getFilmByTitle(component[1]) != null) {
+                        if (filmManager.getFilmByTitle(component[1]) != null) {
                             response = FilmService.EXISTS;
                             break;
                         }
 
                         Film newFilm = new Film(component[1], component[2]);
-                        boolean isAdded = FilmManager.addFilm(newFilm);
+                        boolean isAdded = filmManager.addFilm(newFilm);
                         if (isAdded) {
                             response = FilmService.ADDED;
                         }
@@ -192,12 +197,12 @@ public class RequestHandler implements Runnable{
                             break;
                         }
                         //Check if film exists
-                        if (FilmManager.getFilmByTitle(component[1]) == null) {
+                        if (filmManager.getFilmByTitle(component[1]) == null) {
                             response = FilmService.NOT_FOUND;
                             break;
                         }
 
-                        boolean isDeleted = FilmManager.deleteFilmByTitle(component[1]);
+                        boolean isDeleted = filmManager.deleteFilmByTitle(component[1]);
                         if (isDeleted) {
                             response = FilmService.REMOVED;
                         }
@@ -236,5 +241,4 @@ public class RequestHandler implements Runnable{
             System.out.println("An IOException occurred on data socket when communicating with " + dataSocket.getInetAddress());
             System.out.println(e.getMessage());
         }
-    }
-}
+    }}

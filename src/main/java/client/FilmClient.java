@@ -171,4 +171,5 @@ public class FilmClient {
         } catch (IOException e) {
             System.out.println("An IOException occurred: " + e.getMessage());
         }
-    }}
+    }
+}
